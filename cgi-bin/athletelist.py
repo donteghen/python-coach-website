@@ -18,7 +18,7 @@ class AthleteList(list):
             else:
                 sanitizeTimes.append(item)                
         return sanitizeTimes
-
+    
     def top(self, top=3):
         '''Compute and returns list of an athlete's x best time records. it defaults to top 3 '''
         return sorted(list(set(self.sanitize())))[0: top]

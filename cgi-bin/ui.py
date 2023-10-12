@@ -1,4 +1,7 @@
 from string import Template
+import os
+
+
 
 def start_response(resp="text/html"): 
     return('Content-type: ' + resp + '\n\n')
@@ -27,7 +30,18 @@ def end_form(submit_msg="Submit"):
 def radio_button(rb_name, rb_value): 
     return('<input type="radio" name="' + rb_name +'" value="' + rb_value + '"> ' + rb_value + '<br />')
 
-
+def create_inputs(inputs_list):
+    inputs = ''
+    for input in inputs_list:
+        inputs += '<input type="Text" name="' + input + '" size=40><br />'
+    return inputs   
+def do_form(name, the_inputs, method="POST", text="submit"):
+    with open(os.getcwd() + '/templates/form.html', mode='r+') as f:
+        form_data = f.read()
+        inputs = create_inputs(the_inputs) 
+        form = Template(form_data)
+        return form.substitute(cgi_name=name, http_method=method, list_of_inputs=inputs, submit_text=text)
+    
 def u_list(items): 
     u_string = '<ul>' 
     for item in items:

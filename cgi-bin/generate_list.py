@@ -1,5 +1,6 @@
 #! /usr/local/bin/python3
-import glob, athletemodel, ui
+import glob, athletemodel, ui, cgitb
+cgitb.enable()
 
 athlete_files = glob.glob('data/*.txt')
 athlete_files = ['/' + path for path in athlete_files]
