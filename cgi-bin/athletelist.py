@@ -42,7 +42,10 @@ class AthleteList(list):
             return strvalue.replace(':', '.')  
         else:
             return strvalue
-
+    @property    
+    def getCleanedupData(self): 
+        return sorted(list(set(self.sanitize())))
+    
 def readData(file):
     '''Reads the data from the provided file path and returns a list of strings'''
     MAIN_PATH = os.getcwd()

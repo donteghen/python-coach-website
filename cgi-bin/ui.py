@@ -27,13 +27,13 @@ def start_form(the_url, form_type="POST"):
 def end_form(submit_msg="Submit"):
     return('<p></p><input type=submit value="' + submit_msg + '">')
 
-def radio_button(rb_name, rb_value): 
-    return('<input type="radio" name="' + rb_name +'" value="' + rb_value + '"> ' + rb_value + '<br />')
+def radio_button(rb_name, rb_value, rb_label): 
+    return('<input type="radio" name="' + rb_name +'" value="' + rb_value + '"> ' + rb_label + '<br />')
 
 def create_inputs(inputs_list):
     inputs = ''
     for input in inputs_list:
-        inputs += '<input type="Text" name="' + input + '" size=40><br />'
+        inputs += '<span>Enter the ' + input + ' </span> <br/> <input type="Text" name="' + input + '" size=40> <br /><br />'
     return inputs   
 def do_form(name, the_inputs, method="POST", text="submit"):
     with open(os.getcwd() + '/templates/form.html', mode='r+') as f:
