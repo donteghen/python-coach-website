@@ -54,3 +54,9 @@ def header(header_text, header_level=2):
 
 def para(para_text):
     return('<p>' + para_text + '</p>')
+
+def skipLines(lines=1):
+    b_string = ''
+    for i in range(lines):
+        b_string += "<br/>"
+    return (b_string)

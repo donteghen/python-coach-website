@@ -1,18 +1,24 @@
 #! /usr/local/bin/python3
-import os 
-import time 
-import sys
-import cgi, ui, cgitb
+
+
+import cgi, ui, cgitb, sqlite3
 cgitb.enable()
 
-print(ui.start_response('text/plain'))
-addr = os.environ['REMOTE_ADDR'] 
-host = os.environ['REMOTE_HOST'] 
-method = os.environ['REQUEST_METHOD']
-cur_time = time.asctime(time.localtime())
-form = cgi.FieldStorage()
-for each_form_item in form.keys():
-    print(each_form_item + '->' + form[each_form_item].value,  end=' ',  file=sys.stderr)    
-print(host + ", " + addr + ", " + cur_time + ": " + method, file=sys.stderr)
-print(file=sys.stderr)    
-print('OK.')
+form_data = cgi.FieldStorage()
+athelet_id = int(form_data["athlete"].value)
+new_time = float(form_data["time"].value)
+
+page = ''
+page = ui.start_response('text/html')
+page += ui.include_header("Add time successful")
+
+cxn  = sqlite3.Connection('coachdata.sqlite')  
+cursor = cxn.cursor()
+print('inserting {} and {}'.format(athelet_id, new_time), file='stderr')
+cursor.execute("INSERT INTO timing_data (athlete_id, value) VALUES (?, ?)", (athelet_id, new_time))
+cxn.commit()
+cxn.close()
+page += ui.para('Insert operation successful!')
+page += ui.skipLines(2)
+page += ui.include_footer({"home": "/"})
+print(page)
